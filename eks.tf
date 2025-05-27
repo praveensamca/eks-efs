@@ -1,17 +1,17 @@
 provider "aws" {
-  region = "us-east-1"
+  region = var.region
 }
 
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
   version = "5.0.0"
 
-  name = "eks-vpc"
-  cidr = "10.0.0.0/16"
+  name = var.vpc
+  cidr = var.cidr
 
-  azs             = ["us-east-1a", "us-east-1b", "us-east-1c"]
-  public_subnets  = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
-  private_subnets = ["10.0.11.0/24", "10.0.12.0/24", "10.0.13.0/24"]
+  azs             = var.azs
+  public_subnets  = var.public_availability_zone
+  private_subnets = var.private_availability_zone
 
   enable_nat_gateway = true
   single_nat_gateway = true
@@ -21,19 +21,19 @@ module "eks" {
   source          = "terraform-aws-modules/eks/aws"
   version         = "20.8.4"  # latest as of now
 
-  cluster_name    = "my-eks-cluster"
+  cluster_name    = var.cluster_name
   cluster_version = "1.32"
   subnet_ids      = module.vpc.private_subnets
   vpc_id          = module.vpc.vpc_id
 
   eks_managed_node_groups = {
     default = {
-      desired_size = 2
-      max_size     = 3
-      min_size     = 1
+      desired_size = var.desired_size
+      max_size     = var.max_size
+      min_size     = var.max_size
 
-      instance_types = ["t3.medium"]
-      capacity_type  = "ON_DEMAND"
+      instance_types = var.instance_types
+      capacity_type  = var.capacity_type
     }
   }
   # Optional
