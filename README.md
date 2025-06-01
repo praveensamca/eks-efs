@@ -65,7 +65,6 @@ This repository offers a Terraform-based solution to deploy a robust AWS infrast
 * **AWS CLI**: Configured with appropriate credentials.
 * **Terraform**: Version 1.0 or higher.
 * **kubectl**: For interacting with the Kubernetes cluster.
-* **Helm**: Optional, for managing Kubernetes applications.
 
 ## 🚀 Deployment Steps
 
