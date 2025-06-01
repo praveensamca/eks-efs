@@ -46,3 +46,7 @@ variable "capacity_type" {
 variable "vpc" {
     type = string
 }
+
+variable "efs_csi_addon_version" {
+    type =  string
+}

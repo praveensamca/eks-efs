@@ -30,16 +30,23 @@ module "eks" {
     default = {
       desired_size = var.desired_size
       max_size     = var.max_size
-      min_size     = var.max_size
+      min_size     = var.min_size
 
       instance_types = var.instance_types
       capacity_type  = var.capacity_type
     }
+    
   }
+    
+    cluster_additional_security_group_ids = [aws_security_group.efs_sg.id]
   # Optional
   cluster_endpoint_public_access = true
 
   # Optional: Adds the current caller identity as an administrator via cluster access entry
   enable_cluster_creator_admin_permissions = true
+  depends_on = [ aws_security_group.efs_sg ]
+  enable_irsa = true
+  
+
 }
 
