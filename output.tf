@@ -1,3 +1,6 @@
+
+### Added for trouble shooting , feel free to disable if it's annoying
+
 output "vpc" {
     value = module.vpc.vpc_id
 }
